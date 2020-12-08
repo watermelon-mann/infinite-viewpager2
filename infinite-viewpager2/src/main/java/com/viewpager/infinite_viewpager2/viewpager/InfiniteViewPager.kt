@@ -26,7 +26,11 @@ class InfiniteViewPager private constructor(){
 
 
         fun withItems(vararg items: RecyclerViewItem) : Builder {
-            this.itemList =  mutableListOf(*items)
+            return withItems(items.toList())
+        }
+
+        fun withItems(items: List<RecyclerViewItem>) : Builder {
+            this.itemList =  items.toMutableList()
             viewPager.adapter = RecyclerViewAdapter().also {
                 it.updateList(itemList!!)
             }
@@ -34,13 +38,17 @@ class InfiniteViewPager private constructor(){
         }
 
         fun withFragments(vararg fragments: Class<out Fragment>) : Builder {
-            this.fragmentList = mutableListOf(*fragments)
+            return withFragments(fragments.toList())
+        }
+
+
+        fun withFragments(fragments: List<Class<out Fragment>>) : Builder {
+            this.fragmentList = fragments.toMutableList()
             viewPager.adapter = FragmentAdapter(activity).also {
                 it.updateList(fragmentList!!)
             }
             return this
         }
-
 
         fun build() : ViewPager2 {
             return viewPager.apply {
