@@ -6,7 +6,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.viewpager.infinite_viewpager"
+        //applicationId "com.viewpager.infinite_viewpager"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
