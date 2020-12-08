@@ -8,6 +8,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.viewpager.infinite_viewpager2.model.RecyclerViewItem
+import java.lang.IllegalStateException
 
 class RecyclerViewAdapter : ListAdapter<RecyclerViewItem, RecyclerViewAdapter.BindingViewHolder>(DiffItemCallback()) {
 
@@ -41,6 +42,20 @@ class RecyclerViewAdapter : ListAdapter<RecyclerViewItem, RecyclerViewAdapter.Bi
         currentList.toMutableList().clear()
     }
 
+
+    override fun submitList(list: MutableList<RecyclerViewItem>?) {
+        super.submitList(list?.withFakeItems())
+    }
+
+    private fun MutableList<RecyclerViewItem>.withFakeItems() : MutableList<RecyclerViewItem> {
+        val size = this.size
+        if (size < 2) throw IllegalStateException("Size of the list $this must be at least 2")
+        val mutableListOfItems = mutableListOf<RecyclerViewItem>()
+        for (i in 0..size + 2) {
+            mutableListOfItems.add(this[(i + size - 2) % size])
+        }
+        return mutableListOfItems
+    }
 
     private var onClickEvent : (v: View, position: Int) -> Unit = { _: View, _: Int -> }
 
