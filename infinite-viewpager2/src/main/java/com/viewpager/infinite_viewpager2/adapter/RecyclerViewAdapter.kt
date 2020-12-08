@@ -47,7 +47,6 @@ class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.BindingView
         items.clear()
         items.addAll(list.withFakeItems())
         notifyDataSetChanged()
-
     }
 
     private fun MutableList<RecyclerViewItem>.withFakeItems() : MutableList<RecyclerViewItem> {
