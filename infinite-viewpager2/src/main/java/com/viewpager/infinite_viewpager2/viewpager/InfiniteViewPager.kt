@@ -15,7 +15,7 @@ import kotlin.reflect.KClass
 class InfiniteViewPager private constructor(){
 
 
-    class Builder(
+    inner class Builder(
         private val activity: FragmentActivity,
         val viewPager: ViewPager2
         ) {
@@ -62,21 +62,6 @@ class InfiniteViewPager private constructor(){
                 setCurrentItem(2, false)
             }
         }
-
-//        fun build() : ViewPager2 {
-//            return viewPager?.apply {
-//                when(adapterType) {
-//                    AdapterType.FRAGMENT_STATE_ADAPTER -> {
-//                        fragmentList?.let { fragmentAdapter?.updateList(it) }
-//                    }
-//                    AdapterType.RECYCLER_VIEW_ADAPTER -> {
-//                        //itemList?.let { this@Builder.adapter?.updateList(it) }
-//                    }
-//                }
-//                registerOnPageChangeCallback(onPageChangeCallback(this.adapter?.itemCount))
-//                this.setCurrentItem(2, false)
-//            } ?: throw IllegalStateException("View Pager can't be null")
-//        }
 
 
         private fun onPageChangeCallback(listSize : Int?) = object : ViewPager2.OnPageChangeCallback() {
