@@ -22,7 +22,6 @@ class FragmentAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 
     fun updateList(list: MutableList<Class<out Fragment>>) {
         items.addAll(list.withFakeItems())
-        println("list = $items")
         notifyDataSetChanged()
     }
 

@@ -21,43 +21,29 @@ class InfiniteViewPager private constructor(){
         ) {
 
         private var currentPosition: Int = 2
-        private var adapterType: AdapterType? = null
         private var fragmentList: MutableList<Class<out Fragment>>? = null
         private var itemList: MutableList<RecyclerViewItem>? = null
 
 
-        fun setAdapter(adapterType: AdapterType): Builder {
-            this.adapterType = adapterType
-            viewPager.apply {
-                adapter = when(adapterType) {
-                    AdapterType.FRAGMENT_STATE_ADAPTER -> { FragmentAdapter(activity) }
-                    AdapterType.RECYCLER_VIEW_ADAPTER -> { RecyclerViewAdapter() }
-                }
-            }
-            return this
-        }
-
         fun withItems(vararg items: RecyclerViewItem) : Builder {
             this.itemList =  mutableListOf(*items)
+            viewPager.adapter = RecyclerViewAdapter().also {
+                it.updateList(itemList!!)
+            }
             return this
         }
 
         fun withFragments(vararg fragments: Class<out Fragment>) : Builder {
             this.fragmentList = mutableListOf(*fragments)
+            viewPager.adapter = FragmentAdapter(activity).also {
+                it.updateList(fragmentList!!)
+            }
             return this
         }
 
 
         fun build() : ViewPager2 {
             return viewPager.apply {
-                when(adapterType) {
-                    AdapterType.FRAGMENT_STATE_ADAPTER -> {
-                        fragmentList?.let { (adapter as FragmentAdapter).updateList(it) }
-                    }
-                    AdapterType.RECYCLER_VIEW_ADAPTER -> {
-                        itemList?.let { (adapter as RecyclerViewAdapter).submitList(it) }
-                    }
-                }
                 registerOnPageChangeCallback(onPageChangeCallback(adapter?.itemCount))
                 setCurrentItem(2, false)
             }

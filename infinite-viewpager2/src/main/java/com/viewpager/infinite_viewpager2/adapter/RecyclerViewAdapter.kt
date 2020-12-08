@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.viewpager.infinite_viewpager2.model.RecyclerViewItem
 import java.lang.IllegalStateException
 
-class RecyclerViewAdapter : ListAdapter<RecyclerViewItem, RecyclerViewAdapter.BindingViewHolder>(DiffItemCallback()) {
+class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.BindingViewHolder>() {
 
+    private val items: MutableList<RecyclerViewItem?> = MutableList(0) {null}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
         return BindingViewHolder(
@@ -23,7 +24,7 @@ class RecyclerViewAdapter : ListAdapter<RecyclerViewItem, RecyclerViewAdapter.Bi
 
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
-        getItem(position).bind(holder.binding)
+        items[position]?.bind(holder.binding)
         holder.binding.apply {
             executePendingBindings()
             root.setOnClickListener {
@@ -34,17 +35,18 @@ class RecyclerViewAdapter : ListAdapter<RecyclerViewItem, RecyclerViewAdapter.Bi
 
 
     override fun getItemViewType(position: Int): Int {
-        return getItem(position).layoutId
+        return items[position]?.layoutId ?: throw IllegalStateException("RecyclerViewItem can't be null")
     }
 
 
     fun clear() {
-        currentList.toMutableList().clear()
+        items.clear()
     }
 
-
-    override fun submitList(list: MutableList<RecyclerViewItem>?) {
-        super.submitList(list?.withFakeItems())
+    fun updateList(list: MutableList<RecyclerViewItem>) {
+        items.clear()
+        items.addAll(list.withFakeItems())
+        notifyDataSetChanged()
     }
 
     private fun MutableList<RecyclerViewItem>.withFakeItems() : MutableList<RecyclerViewItem> {
@@ -63,6 +65,10 @@ class RecyclerViewAdapter : ListAdapter<RecyclerViewItem, RecyclerViewAdapter.Bi
         onClickEvent = event
     }
 
+
+    override fun getItemCount(): Int {
+        return items.size
+    }
 
     inner class BindingViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 }
