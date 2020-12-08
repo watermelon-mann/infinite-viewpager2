@@ -19,19 +19,18 @@ class FragmentAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         return items[position]
     }
 
-    fun updateList(list: MutableList<KClass<out Fragment>>) {
+    fun updateList(list: MutableList<Class<out Fragment>>) {
         items.addAll(list.withFakeItems())
         println("list = $items")
         notifyDataSetChanged()
     }
 
 
-    private fun MutableList<KClass<out Fragment>>.withFakeItems() : MutableList<Fragment> {
-
+    private fun MutableList<Class<out Fragment>>.withFakeItems() : MutableList<Fragment> {
         val size = this.size
         val mutableListOfFragments = mutableListOf<Fragment>()
         for (i in 0..size + 2) {
-            mutableListOfFragments.add(this[(i + size -2) % size].createInstance())
+            mutableListOfFragments.add(this[(i + size -2) % size].newInstance())
         }
         return mutableListOfFragments
     }
