@@ -15,7 +15,7 @@ import kotlin.reflect.KClass
 class InfiniteViewPager private constructor(){
 
 
-    inner class Builder(
+    class Builder(
         private val activity: FragmentActivity,
         val viewPager: ViewPager2
         ) {
