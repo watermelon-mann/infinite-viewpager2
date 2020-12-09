@@ -36,9 +36,13 @@ The implementation for fragments is very easy
 
 You can also pass a list instead of varargs
 
+The result is
 
-For layout items you are going to need DataBinding. If you're not familiar with DataBinding please go check it out first, to not get confused.
-After enabling databinding in gradle, you need to use it on your layout item.
+![](https://github.com/watermelon-mann/infinite-viewpager2/blob/master/GIF_infinite_view_pager_fragments.gif)
+
+
+For layout items we are going to need DataBinding, in order to make it posible to work with multiple types of items and ViewPagers . If you're not familiar with DataBinding, please, go check it out first, to not get confused.
+After enabling databinding in gradle, we will need to create a ViewPager's layout item using the corresponding data class, like below.
 
 
 
@@ -91,7 +95,7 @@ Assume we have some list of Items
 	)
 
 
-Just convert it to a list of RecyclerViewItems like this
+Just convert it to a list of RecyclerViewItems using toRecyclerViewItem() function, passing the layout.xml for layoutId parameter, and the variable name from the layout for variableId parameter. Example below.
 
 		val items = listOfItems.map {
             it.toRecyclerViewItem(R.layout.layout_item, BR.item)
@@ -104,6 +108,10 @@ Then pass the list of RecyclerViewItems in the Builder
             .build()
 						
 You can also pass varargs instead of a list.
+
+The result is
+
+![](https://github.com/watermelon-mann/infinite-viewpager2/blob/master/GIF_infinite_view_pager_items.gif)
 
 Thank you for checkin:) Feel free to message me if you find some issues.
 
