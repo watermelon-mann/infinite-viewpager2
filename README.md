@@ -22,7 +22,7 @@ Current version is  0.43
 
 # How to use
 
-The implementation for fragments is very easy
+The implementation for fragments is very easy. Just use the builder like in example below.
 
 	        val viewPager: ViewPager2 = InfiniteViewPager.Builder(this, findViewById(R.id.view_pager))
             .withFragments(
@@ -41,7 +41,7 @@ The result is
 ![](https://github.com/watermelon-mann/infinite-viewpager2/blob/master/GIF_infinite_view_pager_fragments.gif)
 
 
-For layout items we are going to need DataBinding, in order to make it posible to work with multiple types of items and ViewPagers . If you're not familiar with DataBinding, please, go check it out first, to not get confused.
+For a ViewPager2 with layout items we are going to need DataBinding, in order to make it posible to work with multiple types of items. If you're not familiar with DataBinding, please, go check it out first, to not get confused.
 After enabling databinding in gradle, we will need to create a ViewPager's layout item using the corresponding data class, like below.
 
 
@@ -113,5 +113,5 @@ The result is
 
 ![](https://github.com/watermelon-mann/infinite-viewpager2/blob/master/GIF_infinite_view_pager_items.gif)
 
-Thank you for checkin:) Feel free to message me if you find some issues.
+Thank you for coming in:) Feel free to message me if you find some issues.
 
