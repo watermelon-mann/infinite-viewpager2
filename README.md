@@ -17,7 +17,7 @@ Add the dependency in your build.gradle file
 
 	        implementation "com.github.watermelon-mann.infinite-viewpager2:infinite-viewpager2:$infinite_view_pager_version"
 
-Current version is  0.43
+Current version is  1.0
 
 
 # How to use
