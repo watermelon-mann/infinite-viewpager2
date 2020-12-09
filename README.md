@@ -12,7 +12,7 @@ Add the JitPack repository to your build file
 		}
 	}
  
-Add the dependancy in your build.gradle file
+Add the dependency in your build.gradle file
 
 
 	        implementation "com.github.watermelon-mann.infinite-viewpager2:infinite-viewpager2:$infinite_view_pager_version"
